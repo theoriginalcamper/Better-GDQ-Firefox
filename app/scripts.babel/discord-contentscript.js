@@ -27,7 +27,7 @@ $(document).ready(function() {
 
     function addTwitchSwitch() {
     	$('.links').html('<div id="twitch-switch"><label for="twitch-player-display" id="twitch-player-display-label">Twitch Player Embed</label></div>');
-	    $('#twitch-switch').append(`<input type="checkbox" data-size="mini" name="twitch-player-display">`);
+	    $('#twitch-switch').append(`<input type="checkbox" data-size="mini" name="twitch-player-display"></input>`);
 	      	
 	    $("[name='twitch-player-display']").bootstrapSwitch();
     }
@@ -91,7 +91,7 @@ $(document).ready(function() {
             					updateDiscordUI('add');
             					clearInterval(uiUpdate);
             				}
-            			});
+            			}, 1000);
     				} else {
     					$('#twitch-container').css('display', 'none');
             			updateDiscordUI('remove');

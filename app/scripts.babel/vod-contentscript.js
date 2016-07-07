@@ -32,7 +32,7 @@ function addHighlights() {
 	$('.text-gdq-black.well').after('<h4 class="text-gdq-black well ">Clicking the <i class="fa fa-star-o"></i> beside the run will highlight it!<br >Use this to keep track of runs you want to watch.</h4>');
 	
 	$('tr:not(.day-split):not(.second-row) td:nth-child(1)').each(function(index) {
-		$(this).html(`<input type="checkbox" class="highlight-run" name="checkbox" id="theater-mode${index}"> <label for="theater-mode${index}">${$(this).text()}</label>`)
+		$(this).html(`<input type="checkbox" class="highlight-run" name="checkbox" id="theater-mode${index}"></input> <label for="theater-mode${index}">${$(this).text()}</label>`)
 		var that = $(this)
 		$(`#theater-mode${index}`).change(function() {
         	if($(this).is(":checked")) {

@@ -17,148 +17,172 @@ runners_paragraph.id = "gdq-runners-information";
 game_link_a.id = "gdq-speedrun-link";
 game_link_a.className = "speedrun-link";
 
-$.get(chrome.extension.getURL('/html/gdq-footer.html'), function (data) {
-    $($.parseHTML(data)).appendTo(page_elem);
-});
+// $.get(chrome.extension.getURL('html/gdq-footer.html'), function(data) {
+//     console.log("Loading GDQ Footer");
+//     console.log(data);
+//     console.log($.parseHTML(data));
+//     $($.parseHTML(data)).appendTo(page_elem);
+// });
 
-$.get(chrome.extension.getURL('/html/settings-menu.html'), function (data) {
-    var menu_ul = $(".settings-menu");
-    $($.parseHTML(data)).appendTo(menu_ul);
-});
+var footerHTML = '<footer class="standard-footer" id="footer">\n    <div class="extension-container">\n        <div class="game-information col-md-11"></div>\n        <div id="options">\n            <i class="fa fa-calendar collapsed" data-toggle="collapse" data-target="#collapseCalendar" aria-expanded="false"></i>\n            <i class="fa fa-refresh" id="settings-icon"></i>\n            <div class="btn-group dropup">\n                <a class="dropdown-toggle" id="settings-link" data-toggle="dropdown">\n                    <i class="fa fa-cog" id="settings-icon"></i>\n                </a>\n                <ul class="dropdown-menu settings-menu" style="left: -150px; margin-bottom: 20px;"></ul>\n            </div>\n        </div>\n        <div style="clear:both;"></div>\n        <div class="collapse col-md-11" id="collapseCalendar">\n            <!-- Schedule -->\n            <p><i class="fa fa-calendar" style="margin-right: 10px;"></i> Next Runs</p>\n            <table class="table" id="schedule-table">\n                <tbody>\n                </tbody>\n            </table>\n        </div>\n    </div>\n</footer>';
+
+var settingsHTML = '<li>\n    <div class="col-md-12">\n        <form class="form" role="form" method="post" action="" accept-charset="UTF-8" id="refresh-timer-update">\n            <div class="form-group">\n                <label for="timer"><i class="fa fa-clock-o" aria-hidden="true"></i> Refresh Timer</label>\n                <select class="form-control" id="refresh-timer-select" name="timer">\n                    <option selected="selected">Set Refresh Timer:</option>\n                    <option value="1">1 minute</option>\n                    <option value="2">2 minutes</option>\n                    <option value="3">3 minutes</option>\n                    <option value="4">4 minutes</option>\n                    <option value="5">5 minutes</option>\n                    <option value="6">6 minutes</option>\n                    <option value="7">7 minutes</option>\n                    <option value="8">8 minutes</option>\n                    <option value="9">9 minutes</option>\n                    <option value="10">10 minutes</option>\n                    <option value="15">15 minutes</option>\n                    <option value="20">20 minutes</option>\n                    <option value="25">25 minutes</option>\n                    <option value="30">30 minutes</option>\n                </select>\n                <button type="submit" class="btn btn-primary" id="refresh-timer-submit"><i class="fa fa-check" id="refresh-form-check" aria-hidden="true"></i></button>\n            </div>\n        </form>\n\n        <form class="form" role="form" method="post" action="" accept-charset="UTF-8" id="schedule-items-update">\n            <div class="form-group">\n                <label for="schedule-items"><i class="fa fa-calendar" aria-hidden="true"></i> Schedule Display</label>\n                <select class="form-control" id="schedule-items-select" name="schedule-items">\n                    <option selected="selected"># of Runs to Display:</option>\n                    <option value="1">1 run</option>\n                    <option value="2">2 runs</option>\n                    <option value="3">3 runs</option>\n                    <option value="4">4 runs</option>\n                    <option value="5">5 runs</option>\n                </select>\n                <button type="submit" class="btn btn-primary" id="schedule-items-submit"><i class="fa fa-check" id="schedule-items-check" aria-hidden="true"></i></button>\n            </div>\n        </form>\n        <div style="margin-bottom: 10px;">\n            <label for="quakenet-chat-switch" id="quakenet-chat-switch"><i class="fa fa-commenting-o" aria-hidden="true"></i> Quake Chat Embed</label>\n            <input type="checkbox" name="quakenet-chat-switch" />\n        </div>\n        <div style="margin-bottom: 10px;">\n            <label for="twitch-chat-switch" id="twitch-chat-switch"><i class="fa fa-twitch" aria-hidden="true"></i> Twitch Chat Embed</label>\n            <input type="checkbox" name="twitch-chat-switch"></input>\n        </div>\n        <div style="margin-bottom: 10px;">\n            <label for="theater-mode" id="theater-mode"><i class="fa fa-film" aria-hidden="true"></i> Quake Theater Mode</label>\n            <input type="checkbox" name="theater-mode" ></input>\n        </div>\n    </div>\n</li>';
+
+var quakeChat = '<div id="quakenet-chat" class="pull-left" style="width: 524px;\n    margin-top: 24px;\n    height: 436px;\n    margin-left: 10px;">\n  <iframe src="https://webchat.quakenet.org/?channels=sdamarathon" width="100%" height="100%" frameborder="0" scrolling="no" class="center-block"></iframe>\n</div>\n<div class="clearfix" id="quakenet-clear"></div>';
+
+var quakeTheatherMode = '<div id="theater-mode-div" style="width: 100%;height: 90%;position: fixed;background-color: #000;z-index: 10000;top: 0;left: 0;">\n    <div class="row" style="height: 100%;">\n        <div class="col-md-8" style="height: 100%; padding: 0px;">\n            <iframe src="https://player.twitch.tv/?channel=gamesdonequick" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen="true" class="center-block"></iframe>\n        </div>\n        <div class="col-md-4" style="height: 100%; padding: 0px;">\n            <iframe src="https://webchat.quakenet.org/?channels=sdamarathon" width="100%" height="100%" frameborder="0" scrolling="no" class="center-block"></iframe>\n        </div>\n    </div>\n</div>';
+
+var twitchChat = '<div id="twitch-chat" class="pull-left" style="width: 524px;\n    margin-top: 24px;\n    height: 436px;\n    margin-left: 10px;">\n    <iframe frameborder="0" scrolling="no" id="chat_embed" src="https://www.twitch.tv/gamesdonequick/chat" height="436" width="524"></iframe>\n</div>\n<div class="clearfix" id="twitch-clear"></div>';
+
+// $.get(chrome.extension.getURL('html/settings-menu.html'), function(data) {
+//     console.log("Loading Settings Menu");
+//     console.log(data);
+//     console.log($.parseHTML(data));
+//     var menu_ul = $(".settings-menu");
+//     $($.parseHTML(data)).appendTo(menu_ul);
+// });
 
 $(page_elem).on('click', 'ul.dropdown-menu', function (e) {
     e.stopPropagation();
 });
 
 $(document).ready(function () {
+    $(page_elem).append(footerHTML);
+    var addSettingsMenu = setInterval(function () {
+        console.log("Looking for Settings Menu");
+        if ($(".settings-menu").length > 0) {
+            $(".settings-menu").append(settingsHTML);
+            clearInterval(addSettingsMenu);
+
+            $("#refresh-timer-update").on('submit', function (e) {
+                e.preventDefault();
+
+                var updateRefreshTimerValue = $('#refresh-timer-update').serializeArray()[0]["value"];
+
+                updateRefreshRate(updateRefreshTimerValue);
+
+                return false;
+            });
+
+            $("#schedule-items-update").on('submit', function (e) {
+                e.preventDefault();
+
+                var updateScheduleItemsValue = $('#schedule-items-update').serializeArray()[0]["value"];
+
+                console.log(updateScheduleItemsValue);
+                sendUpdateCalendarItemsNumber(updateScheduleItemsValue);
+
+                return false;
+            });
+
+            $(".fa.fa-refresh").click(function () {
+                this.className = 'fa fa-refresh fa-spin';
+                console.log("Refreshing...");
+                requestDataFromBackground();
+                var that = this;
+                setTimeout(function () {
+                    that.className = 'fa fa-refresh';
+                    console.log("Refresh complete.");
+                }, 2000);
+            });
+
+            $(".fa.fa-cog").click(function () {
+                this.className = 'fa fa-cog fa-spin';
+                var that = this;
+                setTimeout(function () {
+                    that.className = 'fa fa-cog';
+                }, 2000);
+            });
+        }
+    }, 1000);
     $(page_elem).css('margin-bottom', '70px');
     $('#stream').html('<iframe src="https://player.twitch.tv/?channel=gamesdonequick" width="100%" height="100%" frameborder="0" scrolling="no" allowFullscreen="true" class="center-block"></iframe>');
     $('#stream').css('margin-top', '24px');
     $('.game-information').append(game_link_a);
     $('.game-information').append(runners_paragraph);
 
-    $("#refresh-timer-update").on('submit', function (e) {
-        e.preventDefault();
+    var addBootstrapSwitches = setInterval(function () {
+        if ($("[name='quakenet-chat-switch']").length > 0) {
+            $("[name='quakenet-chat-switch']").bootstrapSwitch();
+            $("[name='twitch-chat-switch']").bootstrapSwitch();
+            $("[name='theater-mode']").bootstrapSwitch();
 
-        var updateRefreshTimerValue = $('#refresh-timer-update').serializeArray()[0]["value"];
+            $('input[name="theater-mode"]').on('switchChange.bootstrapSwitch', function (event, state) {
+                if ($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state')) {
+                    updateQuakeChat('remove');
+                    $('input[name="quakenet-chat-switch"]').bootstrapSwitch('state', false, true);
+                }
 
-        updateRefreshRate(updateRefreshTimerValue);
+                if ($('input[name="theater-mode"]').bootstrapSwitch('state')) {
+                    $('#stream').html('');
+                    $('#battlescene').before(quakeTheatherMode);
+                    $('#footer').addClass('theater-footer').removeClass('standard-footer');
+                } else {
+                    $('#theater-mode-div').remove();
+                    $('#stream').html('<iframe src="https://player.twitch.tv/?channel=gamesdonequick" width="100%" height="100%" frameborder="0" scrolling="no" allowFullscreen="true" class="center-block"></iframe>');
+                    $('#footer').addClass('standard-footer').removeClass('theater-footer');
+                }
+            });
 
-        return false;
-    });
+            $('input[name="quakenet-chat-switch"]').on('switchChange.bootstrapSwitch', function (event, state) {
+                console.log('Clicked QUAKENET Switch.');
+                console.log(this);
+                console.log("Twitch State:");
+                console.log($('input[name="twitch-chat-switch"]').bootstrapSwitch('state'));
+                console.log("Quake State:");
+                console.log($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state'));
 
-    $("#schedule-items-update").on('submit', function (e) {
-        e.preventDefault();
+                if ($('input[name="twitch-chat-switch"]').bootstrapSwitch('state')) {
+                    updateTwitchChat('remove');
+                    $('input[name="twitch-chat-switch"]').bootstrapSwitch('state', false, true);
+                    if ($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state')) {
+                        updateQuakeChat('add');
+                    } else {
+                        updateQuakeChat('remove');
+                    }
+                } else {
+                    console.log();
+                    if ($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state')) {
+                        updateQuakeChat('add');
+                    } else {
+                        updateQuakeChat('remove');
+                    }
+                }
+            });
 
-        var updateScheduleItemsValue = $('#schedule-items-update').serializeArray()[0]["value"];
+            $('input[name="twitch-chat-switch"]').on('switchChange.bootstrapSwitch', function (event, state) {
+                console.log('Clicked Twitch Switch.');
+                if ($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state')) {
+                    updateQuakeChat('remove');
+                    $('input[name="quakenet-chat-switch"]').bootstrapSwitch('state', false, true);
+                    if ($('input[name="twitch-chat-switch"]').bootstrapSwitch('state')) {
+                        updateTwitchChat('add');
+                    } else {
+                        updateTwitchChat('remove');
+                    }
+                } else {
+                    if ($('input[name="twitch-chat-switch"]').bootstrapSwitch('state')) {
+                        updateTwitchChat('add');
+                    } else {
+                        updateTwitchChat('remove');
+                    }
+                }
+            });
 
-        console.log(updateScheduleItemsValue);
-        sendUpdateCalendarItemsNumber(updateScheduleItemsValue);
-
-        return false;
-    });
-
-    $(".fa.fa-refresh").click(function () {
-        this.className = 'fa fa-refresh fa-spin';
-        console.log("Refreshing...");
-        requestDataFromBackground();
-        var that = this;
-        setTimeout(function () {
-            that.className = 'fa fa-refresh';
-            console.log("Refresh complete.");
-        }, 2000);
-    });
-
-    $(".fa.fa-cog").click(function () {
-        this.className = 'fa fa-cog fa-spin';
-        var that = this;
-        setTimeout(function () {
-            that.className = 'fa fa-cog';
-        }, 2000);
-    });
-
-    $("[name='quakenet-chat-switch']").bootstrapSwitch();
-    $("[name='twitch-chat-switch']").bootstrapSwitch();
-    $("[name='theater-mode']").bootstrapSwitch();
+            clearInterval(addBootstrapSwitches);
+        }
+    }, 1000);
 
     /*
         QUAKENET IRC THEATER MODE BUTTON
     */
 
-    $('input[name="theater-mode"]').on('switchChange.bootstrapSwitch', function (event, state) {
-        if ($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state')) {
-            updateQuakeChat('remove');
-            $('input[name="quakenet-chat-switch"]').bootstrapSwitch('state', false, true);
-        }
-
-        if ($('input[name="theater-mode"]').bootstrapSwitch('state')) {
-            $('#stream').html('');
-            $.get(chrome.extension.getURL('/html/quakenet-theater-mode.html'), function (data) {
-                console.log("Adding theater mode!");
-                console.log($.parseHTML(data));
-                $('#battlescene').before($.parseHTML(data));
-            });
-            $('#footer').addClass('theater-footer').removeClass('standard-footer');
-        } else {
-            $('#theater-mode-div').remove();
-            $('#stream').html('<iframe src="https://player.twitch.tv/?channel=gamesdonequick" width="100%" height="100%" frameborder="0" scrolling="no" allowFullscreen="true" class="center-block"></iframe>');
-            $('#footer').addClass('standard-footer').removeClass('theater-footer');
-        }
-    });
-
-    $('input[name="quakenet-chat-switch"]').on('switchChange.bootstrapSwitch', function (event, state) {
-        console.log('Clicked QUAKENET Switch.');
-        console.log(this);
-        console.log("Twitch State:");
-        console.log($('input[name="twitch-chat-switch"]').bootstrapSwitch('state'));
-        console.log("Quake State:");
-        console.log($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state'));
-
-        if ($('input[name="twitch-chat-switch"]').bootstrapSwitch('state')) {
-            updateTwitchChat('remove');
-            $('input[name="twitch-chat-switch"]').bootstrapSwitch('state', false, true);
-            if ($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state')) {
-                updateQuakeChat('add');
-            } else {
-                updateQuakeChat('remove');
-            }
-        } else {
-            console.log();
-            if ($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state')) {
-                updateQuakeChat('add');
-            } else {
-                updateQuakeChat('remove');
-            }
-        }
-    });
-
-    $('input[name="twitch-chat-switch"]').on('switchChange.bootstrapSwitch', function (event, state) {
-        console.log('Clicked Twitch Switch.');
-        if ($('input[name="quakenet-chat-switch"]').bootstrapSwitch('state')) {
-            updateQuakeChat('remove');
-            $('input[name="quakenet-chat-switch"]').bootstrapSwitch('state', false, true);
-            if ($('input[name="twitch-chat-switch"]').bootstrapSwitch('state')) {
-                updateTwitchChat('add');
-            } else {
-                updateTwitchChat('remove');
-            }
-        } else {
-            if ($('input[name="twitch-chat-switch"]').bootstrapSwitch('state')) {
-                updateTwitchChat('add');
-            } else {
-                updateTwitchChat('remove');
-            }
-        }
-    });
-
     function updateQuakeChat(msg) {
         if (msg == 'add') {
             console.log('Switch is on. Adding Chat iframe and modifying UI.');
             $('#stream').removeClass('center-block').addClass('pull-left');
-            $.get(chrome.extension.getURL('/html/quakenet-chat.html'), function (data) {
-                var twitchStream = $("#stream");
-                $(twitchStream).after($.parseHTML(data));
-            });
+            var twitchStream = $("#stream");
+            $(twitchStream).after(quakeChat);
         } else if (msg == 'remove') {
             console.log('Switch is off. Removing UI.');
             $('#stream').addClass('center-block').removeClass('pull-left');
@@ -171,10 +195,8 @@ $(document).ready(function () {
         if (msg == 'add') {
             console.log('Switch is on. Adding Chat iframe and modifying UI.');
             $('#stream').removeClass('center-block').addClass('pull-left');
-            $.get(chrome.extension.getURL('/html/twitch-chat.html'), function (data) {
-                var twitchStream = $("#stream");
-                $(twitchStream).after($.parseHTML(data));
-            });
+            var twitchStream = $("#stream");
+            $(twitchStream).after(twitchChat);
         } else if (msg == 'remove') {
             console.log('Switch is off. Removing UI.');
             $('#stream').addClass('center-block').removeClass('pull-left');
