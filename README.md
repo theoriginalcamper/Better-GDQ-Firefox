@@ -27,10 +27,10 @@ Other Functionality:
 # To Install
 While the new features and bug fixes are being worked on, you can download the project and install Better-GDQ-Firefox using these instructions:
 
-1. Download the Better-GDQ-Firefox-v1.8.1.zip file
-2. Go to about:config and set xpinstall.signature.required to false
-3. Go to about:addons and drag and drop the zip file onto the page
-4. Click install when prompted 
-5. Visit [GamesDoneQuick.com](https://gamesdonequick.com) or the [GDQ Discord Web Client](https://discord.gg/gamesdonequick) and verifying the UI has changed
+1. Download the project zip file from above
+2. Go to about:addons in Firefox
+2. Drag and Drop the .xpi file onto the page
+3. Click install when prompted 
+4. Visit [GamesDoneQuick.com](https://gamesdonequick.com) or the [GDQ Discord Web Client](https://discord.gg/gamesdonequick) and verifying the UI has changed
 
 All comments/feedback/criticisms, feature requests or ideas and bug reports are welcome.
