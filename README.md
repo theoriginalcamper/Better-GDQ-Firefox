@@ -1,5 +1,5 @@
-# Better-GDQ
-Chrome Extension that adds functionality and UI changes to improve the GDQ viewing experience on GamesDoneQuick.com and the GDQ Discord web client
+# Better-GDQ-Firefox
+Firefox WebExtension Port of the Chrome Extension that adds functionality and UI changes to improve the GDQ viewing experience on GamesDoneQuick.com and the GDQ Discord web client
 
 ## GameDoneQuick.com
 Adds a fixed footer to the GamesDoneQuick.com website that displays:
@@ -25,10 +25,12 @@ Other Functionality:
 ![Alt text](/discord-screenshot.png?raw=true "Extension Discord Screenshot")
 
 # To Install
-While the new features and bug fixes are being worked on, you can download the project and install Better-GDQ by:
+While the new features and bug fixes are being worked on, you can download the project and install Better-GDQ-Firefox using these instructions:
 
-1. Enabling developer mode on the Chrome Extensions page
-2. Loading the unpacked extension and opening the **dist** folder
-3. Visiting [GamesDoneQuick.com](https://gamesdonequick.com) or the [GDQ Discord Web Client](https://discord.gg/gamesdonequick) and verifying the UI has changed
+1. Download the Better-GDQ-Firefox-v1.8.1.zip file
+2. Go to about:config and set xpinstall.signature.required to false
+3. Go to about:addons and drag and drop the zip file onto the page
+4. Click install when prompted 
+5. Visit [GamesDoneQuick.com](https://gamesdonequick.com) or the [GDQ Discord Web Client](https://discord.gg/gamesdonequick) and verifying the UI has changed
 
 All comments/feedback/criticisms, feature requests or ideas and bug reports are welcome.
