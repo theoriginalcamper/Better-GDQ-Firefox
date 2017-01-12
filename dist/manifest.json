@@ -1,6 +1,6 @@
 {
   "name": "Better-GDQ-Firefox",
-  "version": "1.8.3",
+  "version": "2.5.0",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -9,15 +9,15 @@
   },
   "applications": {
     "gecko": {
-      "id": "Better-GDQ-Extension@github.com"
+      "id": "{ce5e1ed3-f068-47c2-bf39-8e38e3bb01ec}"
     }
   },
   "default_locale": "en",
   "background": {
     "scripts": [
-      "scripts/jquery-2.2.0.min.js",
-      "scripts/underscore-min.js",
-      "scripts/fuzzyset.js",
+      "scripts/vendor/jquery-2.2.0.min.js",
+      "scripts/vendor/underscore-min.js",
+      "scripts/vendor/fuzzyset.js",
       "scripts/background.js"
     ]
   },
@@ -53,11 +53,11 @@
         "styles/main.css"
       ],
       "js": [
-        "scripts/jquery-2.2.0.min.js",
-        "scripts/bootstrap-notify.min.js",
-        "scripts/bootstrap-switch.min.js",
-        "scripts/contentscript.js",
-        "scripts/underscore-min.js"
+        "scripts/vendor/jquery-2.2.0.min.js",
+        "scripts/vendor/bootstrap-notify.min.js",
+        "scripts/vendor/bootstrap-switch.min.js",
+        "scripts/vendor/underscore-min.js",
+        "scripts/gdq/contentscript.js"
       ],
       "run_at": "document_end",
       "all_frames": false
@@ -70,13 +70,15 @@
         "https://www.gamesdonequick.com/schedule"
       ],
       "js": [
-        "scripts/vod-contentscript.js"
+        "scripts/gdq/vod-contentscript.js"
       ],
       "run_at": "document_end",
       "all_frames": false
     },
     {
       "matches": [
+        "https://discordapp.com/channels/85369684286767104/85369684286767104",
+        "https://discordapp.com/channels/85369684286767104/*",
         "https://discordapp.com/channels/140605087511740416/140605087511740416",
         "https://discordapp.com/channels/140605087511740416/*",
         "https://discordapp.com/channels/*"
@@ -84,11 +86,14 @@
       "css": [
         "styles/fontawesome-min.css",
         "styles/bootstrap-switch.min.css",
+        "styles/main.css",
         "styles/discord.css"
       ],
       "js": [
-        "scripts/jquery-2.2.0.min.js",
-        "scripts/bootstrap-switch.min.js",
+        "scripts/vendor/jquery-2.2.0.min.js",
+        "scripts/vendor/bootstrap.min.js",
+        "scripts/vendor/bootstrap-switch.min.js",
+        "scripts/vendor/underscore-min.js",
         "scripts/discord-contentscript.js"
       ],
       "run_at": "document_end",
@@ -100,6 +105,9 @@
     "html/quakenet-chat.html",
     "html/quakenet-theater-mode.html",
     "html/settings-menu.html",
-    "html/twitch-chat.html"
+    "html/twitch-chat.html",
+    "fonts/fontawesome-webfont.woff",
+    "fonts/fontawesome-webfont.woff2",
+    "json/agdq2017_runners.json"
   ]
 }
