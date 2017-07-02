@@ -78,12 +78,14 @@ function addBidWars() {
 function addRunnerLinks() {
 	console.log("Adding Runners");
 
-	$.getJSON(browser.extension.getURL('/json/agdq2017_runners.json')).done(function (resp) {
+	$.getJSON(browser.extension.getURL('/json/sgdq2017_runners.json')).done(function (resp) {
 		console.log(resp);
 		var runnerJSON = resp;
 
 		$.each(runnerArray, function (index, runnerString) {
-			$('tr:not(.day-split):not(.second-row) td:nth-child(3):contains(' + runnerString + ')').each(function (index, element) {
+			$('tr:not(.day-split):not(.second-row) td:nth-child(3)').filter(function () {
+				return $(this).text() === runnerString;
+			}).each(function (index, element) {
 				var runners = runnerString.split(', ');
 				var runnerObjects = {};
 
@@ -148,7 +150,7 @@ function generateRunnerElement(runnerObject, runner_key, location) {
 
 function addVodLinks() {
 	console.log("Starting to add links");
-	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/097c11a5d7a6cf7b2b45649eaff706f0/raw/agdq2017-vod.json").done(function (data) {
+	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/8b9870ae4a5158695eb08520c07b849d/raw/sgdq2017-vod.json").done(function (data) {
 		console.log(data);
 		var titles = _.keys(data);
 		console.log(titles);

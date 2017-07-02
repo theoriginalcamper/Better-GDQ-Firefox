@@ -15,6 +15,8 @@ gulp.task('extras', () => {
     'app/json/sgdq_schedule.json',
     'app/json/agdq2017_runners.json',
     'app/json/agdq2017_schedule.json',
+    'app/json/sgdq2017_runners.json',
+    'app/json/sgdq2017_schedule.json',
     'app/html/gdq-footer.html',
     'app/html/quakenet-chat.html',
     'app/html/quakenet-theater-mode.html',

@@ -1,6 +1,6 @@
 {
   "name": "Better-GDQ-Firefox",
-  "version": "2.5.0",
+  "version": "2.7.0",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -108,6 +108,7 @@
     "html/twitch-chat.html",
     "fonts/fontawesome-webfont.woff",
     "fonts/fontawesome-webfont.woff2",
-    "json/agdq2017_runners.json"
+    "json/agdq2017_runners.json",
+    "json/sgdq2017_runners.json"
   ]
 }
