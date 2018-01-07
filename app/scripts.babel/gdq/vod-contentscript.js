@@ -1,10 +1,10 @@
 var gameArray = [];
-var timeArray = [];
+var runnerArray = [];
 var storageObj = null;
 $(document).ready(function() {
 	retrieveGameTitleList();
-	// loadHighlightStorage();
-	// addHighlights();
+	loadHighlightStorage();
+	addHighlights();
 	addRunnerLinks();
 	addVodLinks();
 	addBidWars();
@@ -16,8 +16,8 @@ function retrieveGameTitleList() {
 		gameArray.push($(this).text());
 	});
 
-	$('tr:not(.day-split):not(.second-row) td:nth-child(1)').each(function() {
-		timeArray.push($(this).text());
+	$('tr:not(.day-split):not(.second-row) td:nth-child(3)').each(function() {
+		runnerArray.push($(this).text());
 	});
 }
 
@@ -27,6 +27,9 @@ function loadHighlightStorage() {
 		storageObj = JSON.parse(localStorage.getItem('scheduleHighlights'));
 	} else {
 		storageObj = JSON.parse(localStorage.getItem('scheduleHighlights'));
+		browser.storage.sync.set({'scheduleHighlights': storageObj}, function() {
+			console.log('Schedule highlights saved to sync storage');
+		});
 	}
 }
 
@@ -45,7 +48,7 @@ function addHighlights() {
 
             	storageObj[gameTitle] = true;
 
-							chrome.storage.sync.set({'scheduleHighlights': storageObj}, function(data) {
+							browser.storage.sync.set({'scheduleHighlights': storageObj}, function(data) {
             		console.log("Schedule highlights updated and saved to sync storage");
             	});
             	localStorage.setItem('scheduleHighlights', JSON.stringify(storageObj));
@@ -59,6 +62,9 @@ function addHighlights() {
             	storageObj[gameTitle] = false;
 
             	localStorage.setItem('scheduleHighlights', JSON.stringify(storageObj));
+							browser.storage.sync.set({'scheduleHighlights': storageObj}, function() {
+            		console.log("Schedule highlights updated");
+            	});
             	console.log(`Removed the star and highlight for ${gameTitle} on the schedule`);
             }
         });
@@ -71,13 +77,12 @@ function addHighlights() {
 
 function addBidWars() {
 	console.log("Starting to add bid war indications");
-	$('#star-highlight-notice').before('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/agdq2017">Donation Incentives Bid War Tracker</a></h4>');
+	$('#star-highlight-notice').before('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/agdq2018">Donation Incentives Bid War Tracker</a></h4>');
 }
 
 function addRunnerLinks() {
 	console.log("Adding Runners");
-
-	$.getJSON(browser.extension.getURL('/json/sgdq2017_runners.json')).done(function (resp) {
+	$.getJSON(browser.extension.getURL('/json/agdq2018_runners.json')).done(function (resp) {
 	    console.log(resp);
 	    var runnerJSON = resp;
 
@@ -149,7 +154,7 @@ function generateRunnerElement(runnerObject, runner_key, location) {
 
 function addVodLinks() {
 	console.log("Starting to add links");
-	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/8b9870ae4a5158695eb08520c07b849d/raw/sgdq2017-vod.json").done(function(data) {
+	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/efc04e9948d637e011652065da7504d9/raw/adgq2018-vod.json").done(function(data) {
 		console.log(data);
 		var titles = _.keys(data);
 		console.log(titles);

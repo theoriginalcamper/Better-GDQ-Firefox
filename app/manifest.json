@@ -1,6 +1,6 @@
 {
   "name": "Better-GDQ-Firefox",
-  "version": "2.7.1",
+  "version": "2.8.1",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -94,6 +94,7 @@
         "scripts/vendor/bootstrap.min.js",
         "scripts/vendor/bootstrap-switch.min.js",
         "scripts/vendor/underscore-min.js",
+        "scripts/vendor/twitch.embed.v1.js",
         "scripts/discord-contentscript.js"
       ],
       "run_at": "document_end",
@@ -109,6 +110,7 @@
     "fonts/fontawesome-webfont.woff",
     "fonts/fontawesome-webfont.woff2",
     "json/agdq2017_runners.json",
-    "json/sgdq2017_runners.json"
+    "json/sgdq2017_runners.json",
+    "json/agdq2018_runners.json"
   ]
 }
