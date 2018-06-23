@@ -4,7 +4,7 @@ var storageObj = null;
 $(document).ready(function() {
 	retrieveGameTitleList();
 	loadHighlightStorage();
-	addHighlights();
+	// addHighlights();
 	addRunnerLinks();
 	addVodLinks();
 	addBidWars();
@@ -36,53 +36,54 @@ function loadHighlightStorage() {
 function addHighlights() {
 	$('.text-gdq-black.well').after('<h4 class="text-gdq-black well" id="star-highlight-notice">Clicking the <i class="fa fa-star-o"></i> beside the run will highlight it!<br >Use this to keep track of runs you want to watch.</h4>');
 
-	$('tr:not(.day-split):not(.second-row) td:nth-child(1)').each(function(index) {
-		$(this).html(`<input type="checkbox" class="highlight-run" name="checkbox" id="theater-mode${index}"></input> <label for="theater-mode${index}">${$(this).text()}</label>`)
-		var that = $(this)
-		$(`#theater-mode${index}`).change(function() {
-        	if($(this).is(":checked")) {
-            	that.parent().css('background-color', '#F0E68C');
-            	that.parent().next('.second-row').css('background-color', '#F0E68C');
-
-            	var gameTitle = getGameTitleString(that.next('td').text());
-
-            	storageObj[gameTitle] = true;
-
-							browser.storage.sync.set({'scheduleHighlights': storageObj}, function(data) {
-            		console.log("Schedule highlights updated and saved to sync storage");
-            	});
-            	localStorage.setItem('scheduleHighlights', JSON.stringify(storageObj));
-            	console.log(`Starred and highlighted ${gameTitle} on the schedule`);
-            } else {
-            	that.parent().css('background-color', '#FFFFFF');
-            	that.parent().next('.second-row').css('background-color', '#FFFFFF');
-
-            	var gameTitle = getGameTitleString(that.next('td').text());
-
-            	storageObj[gameTitle] = false;
-
-            	localStorage.setItem('scheduleHighlights', JSON.stringify(storageObj));
-							browser.storage.sync.set({'scheduleHighlights': storageObj}, function() {
-            		console.log("Schedule highlights updated");
-            	});
-            	console.log(`Removed the star and highlight for ${gameTitle} on the schedule`);
-            }
-        });
-
-    	if (storageObj[that.next('td').text()] == true) {
-    		$(`#theater-mode${index}`).prop("checked", true).change();
-    	}
-    });
+	// $('tr:not(.day-split):not(.second-row) td:nth-child(1)').each(function(index) {
+		// $(this).html(`<input type="checkbox" class="highlight-run" name="checkbox" id="theater-mode${index}"></input> <label for="theater-mode${index}">${$(this).text()}</label>`)
+		// var that = $(this)
+		// $(`#theater-mode${index}`).change(function() {
+    //     	if($(this).is(":checked")) {
+    //         	that.parent().css('background-color', '#F0E68C');
+    //         	that.parent().next('.second-row').css('background-color', '#F0E68C');
+		//
+    //         	var gameTitle = getGameTitleString(that.next('td').text());
+		//
+    //         	storageObj[gameTitle] = true;
+		//
+		// 					browser.storage.sync.set({'scheduleHighlights': storageObj}, function(data) {
+    //         		console.log("Schedule highlights updated and saved to sync storage");
+    //         	});
+    //         	localStorage.setItem('scheduleHighlights', JSON.stringify(storageObj));
+    //         	console.log(`Starred and highlighted ${gameTitle} on the schedule`);
+    //         } else {
+    //         	that.parent().css('background-color', '#FFFFFF');
+    //         	that.parent().next('.second-row').css('background-color', '#FFFFFF');
+		//
+    //         	var gameTitle = getGameTitleString(that.next('td').text());
+		//
+    //         	storageObj[gameTitle] = false;
+		//
+    //         	localStorage.setItem('scheduleHighlights', JSON.stringify(storageObj));
+		// 					browser.storage.sync.set({'scheduleHighlights': storageObj}, function() {
+    //         		console.log("Schedule highlights updated");
+    //         	});
+    //         	console.log(`Removed the star and highlight for ${gameTitle} on the schedule`);
+    //         }
+    //     });
+		//
+    // 	if (storageObj[that.next('td').text()] == true) {
+    // 		$(`#theater-mode${index}`).prop("checked", true).change();
+    // 	}
+  // });
 }
 
 function addBidWars() {
 	console.log("Starting to add bid war indications");
-	$('#star-highlight-notice').before('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/agdq2018">Donation Incentives Bid War Tracker</a></h4>');
+	// $('#star-highlight-notice').before('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/sgdq2018">Donation Incentives Bid War Tracker</a></h4>');
+	$('.text-gdq-black.well').after('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/sgdq2018">Donation Incentives Bid War Tracker</a></h4>');
 }
 
 function addRunnerLinks() {
 	console.log("Adding Runners");
-	$.getJSON(browser.extension.getURL('/json/agdq2018_runners.json')).done(function (resp) {
+	$.getJSON(browser.extension.getURL('/json/sgdq2018_runners.json')).done(function (resp) {
 	    console.log(resp);
 	    var runnerJSON = resp;
 
@@ -154,7 +155,7 @@ function generateRunnerElement(runnerObject, runner_key, location) {
 
 function addVodLinks() {
 	console.log("Starting to add links");
-	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/efc04e9948d637e011652065da7504d9/raw/adgq2018-vod.json").done(function(data) {
+	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/ab1ed3ebfe4a842e00b789aec070e54e/raw/sgdq2018-vod.json").done(function(data) {
 		console.log(data);
 		var titles = _.keys(data);
 		console.log(titles);
