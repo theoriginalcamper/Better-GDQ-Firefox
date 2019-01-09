@@ -1,6 +1,6 @@
 {
   "name": "Better-GDQ",
-  "version": "2.9.3",
+  "version": "2.11.2",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -24,6 +24,8 @@
   "permissions": [
     "tabs",
     "storage",
+    "webRequest",
+    "https://gist.githubusercontent.com/theoriginalcamper/*",
     "http://gamesdonequick.com/*",
     "http://www.gamesdonequick.com/*",
     "https://gamesdonequick.com/*",
@@ -36,6 +38,23 @@
     "https://api.twitch.tv/channels/gamesdonequick"
   ],
   "content_scripts": [
+    {
+      "matches": [
+        "http://gamesdonequick.com/",
+        "https://gamesdonequick.com/",
+        "http://www.gamesdonequick.com/",
+        "https://www.gamesdonequick.com/"
+      ],
+      "css": [
+        "styles/bootstrap.3.3.6.min.css"
+      ],
+      "js": [
+        "scripts/vendor/jquery-2.2.0.min.js",
+        "scripts/vendor/bootstrap.min.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    },
     {
       "matches": [
         "http://gamesdonequick.com/",
@@ -109,9 +128,6 @@
     "html/twitch-chat.html",
     "fonts/fontawesome-webfont.woff",
     "fonts/fontawesome-webfont.woff2",
-    "json/agdq2017_runners.json",
-    "json/sgdq2017_runners.json",
-    "json/agdq2018_runners.json",
-    "json/sgdq2018_runners.json"
+    "json/agdq2019_runners.json"
   ]
 }

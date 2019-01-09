@@ -13,6 +13,8 @@ gulp.task('extras', () => {
     'app/_locales/**',
     'app/json/sgdq_runners.json',
     'app/json/sgdq_schedule.json',
+    'app/json/agdq2019_runners.json',
+    'app/json/agdq2019_schedule.json',
     'app/json/agdq2018_runners.json',
     'app/json/agdq2018_schedule.json',
     'app/json/sgdq2018_runners.json',

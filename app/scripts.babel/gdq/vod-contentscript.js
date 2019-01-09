@@ -3,7 +3,7 @@ var runnerArray = [];
 var storageObj = null;
 $(document).ready(function() {
 	retrieveGameTitleList();
-	loadHighlightStorage();
+	// loadHighlightStorage();
 	// addHighlights();
 	addRunnerLinks();
 	addVodLinks();
@@ -78,13 +78,15 @@ function addHighlights() {
 function addBidWars() {
 	console.log("Starting to add bid war indications");
 	// $('#star-highlight-notice').before('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/sgdq2018">Donation Incentives Bid War Tracker</a></h4>');
-	$('.text-gdq-black.well').after('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/sgdq2018">Donation Incentives Bid War Tracker</a></h4>');
+	$('.text-gdq-black.well').after('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/agdq2019">Donation Incentives Bid War Tracker</a></h4>');
 }
 
 function addRunnerLinks() {
 	console.log("Adding Runners");
-	$.getJSON(browser.extension.getURL('/json/sgdq2018_runners.json')).done(function (resp) {
-	    console.log(resp);
+
+	$.getJSON('https://gist.githubusercontent.com/theoriginalcamper/c88b9d199104d821a493b13f4c1ab86b/raw/adgq2019_runners.json').done(function (resp) {
+			console.log("Working");
+			console.log(resp);
 	    var runnerJSON = resp;
 
 	    $.each(runnerArray, function(index, runnerString) {
@@ -155,7 +157,7 @@ function generateRunnerElement(runnerObject, runner_key, location) {
 
 function addVodLinks() {
 	console.log("Starting to add links");
-	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/ab1ed3ebfe4a842e00b789aec070e54e/raw/sgdq2018-vod.json").done(function(data) {
+	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/b2d15303f9d2d3c3050750855ec0f85d/raw/agdq2019-vod.json").done(function(data) {
 		console.log(data);
 		var titles = _.keys(data);
 		console.log(titles);

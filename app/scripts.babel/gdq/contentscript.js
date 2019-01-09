@@ -24,7 +24,7 @@ game_link_a.className = "speedrun-link";
 //     $($.parseHTML(data)).appendTo(page_elem);
 // });
 
-var footerHTML = `<footer class="standard-footer" id="footer">
+var footerHTML = `<footer class="standard-footer" id="extension-footer">
     <div class="extension-container">
         <div class="game-information col-md-11"></div>
         <div id="options">
