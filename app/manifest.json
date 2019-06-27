@@ -1,6 +1,6 @@
 {
   "name": "__MSG_appName__",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -15,7 +15,7 @@
   "default_locale": "en",
   "background": {
     "scripts": [
-      "vendor/jquery-2.2.0.min.js",
+      "vendor/jquery-3.0.0.min.js",
       "vendor/underscore-min.js",
       "vendor/fuzzyset.js",
       "scripts/background.js"
@@ -46,10 +46,10 @@
         "https://www.gamesdonequick.com/"
       ],
       "css": [
-        "styles/bootstrap.3.3.6.min.css"
+        "styles/bootstrap.3.3.7.min.css"
       ],
       "js": [
-        "vendor/jquery-2.2.0.min.js",
+        "vendor/jquery-3.0.0.min.js",
         "vendor/bootstrap.min.js"
       ],
       "run_at": "document_start",
@@ -76,7 +76,7 @@
         "styles/main.css"
       ],
       "js": [
-        "vendor/jquery-2.2.0.min.js",
+        "vendor/jquery-3.0.0.min.js",
         "vendor/bootstrap-notify.min.js",
         "vendor/bootstrap-switch.min.js",
         "vendor/underscore-min.js",
@@ -119,7 +119,7 @@
         "styles/main.css"
       ],
       "js": [
-        "vendor/jquery-2.2.0.min.js",
+        "vendor/jquery-3.0.0.min.js",
         "vendor/bootstrap-notify.min.js",
         "vendor/bootstrap-switch.min.js",
         "vendor/underscore-min.js",
@@ -158,11 +158,11 @@
         "styles/discord.css"
       ],
       "js": [
-        "vendor/jquery-2.2.0.min.js",
+        "vendor/twitch.embed.v1.js",
+        "vendor/jquery-3.0.0.min.js",
         "vendor/bootstrap.min.js",
         "vendor/bootstrap-switch.min.js",
         "vendor/underscore-min.js",
-        "vendor/twitch.embed.v1.js",
         "scripts/discord-contentscript.js"
       ],
       "run_at": "document_end",
