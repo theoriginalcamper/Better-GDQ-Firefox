@@ -77,13 +77,13 @@ function addHighlights() {
 
 function addBidWars() {
 	console.log("Starting to add bid war indications");
-	$('.text-gdq-black.well').after('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/agdq2019">Donation Incentives Bid War Tracker</a></h4>');
+	$('.text-gdq-black.well').after('<h4 class="text-gdq-black well"><a href="https://gamesdonequick.com/tracker/bids/agdq2020">Donation Incentives Bid War Tracker</a></h4>');
 }
 
 function addRunnerLinks() {
 	console.log("Adding Runners");
 
-	$.getJSON('https://gist.githubusercontent.com/theoriginalcamper/250f581aec12ecd9a6510feeb9216b2a/raw/sgdq2019_runners.json').done(function (resp) {
+	$.getJSON('https://gist.githubusercontent.com/theoriginalcamper/a65ff06bd3fd30b49db7ff67e5881476/raw/agdq2020_runners.json').done(function (resp) {
 	    console.log(resp);
 	    var runnerJSON = resp;
 
@@ -162,7 +162,7 @@ function generateRunnerElement(runnerObject, runner_key, location) {
 function addVodLinks() {
 	console.log("Starting to add links");
 
-	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/971d7630e40986c626ec1147b2c42c38/raw/sgdq2019-vod.json").done(function(data) {
+	$.getJSON("https://gist.githubusercontent.com/theoriginalcamper/a2565da1234a6142afe5763e2193444b/raw/agdq2020-vod.json").done(function(data) {
 		console.log(data);
 		var titles = _.keys(data);
 		console.log(titles);

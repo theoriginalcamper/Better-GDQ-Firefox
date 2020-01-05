@@ -102,27 +102,27 @@ $(document).ready(function() {
     function addInformationBar() {
 
 			$('#app-mount').before(`
-							<header id="gdq-header" style="width: ${$('div[class^="title-"]').width() - $('div[class^="title-"] > div[class^="toolbar-"]').width() - 10}px; height: ${$('div[class^="title-"]').outerHeight() - 1}px; overflow: hidden; min-height: 48px; position: fixed; top: 0px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth() + $('div[class^="channels-"]').width()}px;">
-								<div class="extension-container">
-									<div id="options" style="transform: translateY(37.5%);">
-										<i class="fa fa-calendar collapsed" data-toggle="collapse" data-target="#collapseCalendar" aria-expanded="false"></i>
-										<i class="fa fa-refresh" id="settings-icon"></i>
-									</div>
+					<header id="gdq-header" style="width: ${$('div[class^="title-"]').width() - $('div[class^="title-"] > div[class^="toolbar-"]').width() - 10}px; height: ${$('div[class^="title-"]').outerHeight() - 1}px; overflow: hidden; min-height: 48px; position: fixed; top: 0px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth() + $('div[class^="sidebar-"]').width()}px;">
+						<div class="extension-container">
+							<div id="options" style="transform: translateY(37.5%);">
+								<i class="fa fa-calendar collapsed" data-toggle="collapse" data-target="#collapseCalendar" aria-expanded="false"></i>
+								<i class="fa fa-refresh" id="settings-icon"></i>
+							</div>
 
-									<div class="game-information">
-									</div>
+							<div class="game-information">
+							</div>
 
-									<div style="clear:both;"></div>
-									<div class="collapse" id="collapseCalendar" style="padding-top: 10px; height: 0px;">
-										<!-- Schedule -->
-										<p><i class="fa fa-calendar" style="margin-right: 10px;"></i> Next Runs</p>
-										<table class="table" id="schedule-table" style="border-collapse: collapse;">
-											<tbody>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</header>
+							<div style="clear:both;"></div>
+							<div class="collapse" id="collapseCalendar" style="padding-top: 10px; height: 0px;">
+								<!-- Schedule -->
+								<p><i class="fa fa-calendar" style="margin-right: 10px;"></i> Next Runs</p>
+								<table class="table" id="schedule-table" style="border-collapse: collapse;">
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</header>
 			`);
 
     	headerHeight = $('#gdq-header').css('height');
@@ -165,8 +165,7 @@ $(document).ready(function() {
 						console.log(Math.round($(document).width() - $('[class^="unreadMentionsIndicatorTop-"]').outerWidth() - ($('[class^="chat"]').width() * (parseFloat($('[class^="messagesWrapper"]')[0].style.width)) / 100)));
 						twitchPlayerInitialSize = Math.round($(document).width() - $('[class^="unreadMentionsIndicatorTop-"]').outerWidth() - ($('[class^="chat"]').width() * (parseFloat($('[class^="messagesWrapper"]')[0].style.width)) / 100));
 
-
-						$('#app-mount').before(`<div id="twitch-container" style="width: ${twitchPlayerInitialSize}px; height: ${$(document).height() - $('div[class^="title-"]').outerHeight() - $('#twitch-switch').outerHeight()}px; position: fixed; z-index:100; top: ${$('div[class^="title-"]').outerHeight()}px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth()}px;">
+						$('#app-mount').before(`<div id="twitch-container" style="width: ${twitchPlayerInitialSize}px; height: ${$('#app-mount').height() - $('div[class^="title-"]').outerHeight() - $('#twitch-switch').outerHeight()}px; position: fixed; z-index:100; top: ${$('div[class^="title-"]').outerHeight()}px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth()}px;">
 																				<iframe src="https://embed.twitch.tv?allowfullscreen=true&amp;channel=gamesdonequick&amp;layout=video" allowfullscreen="" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
 																		</div>`);
 						// $('#app-mount').before(`<script type="text/javascript">
@@ -359,10 +358,8 @@ $(document).ready(function() {
     					$('#twitch-container').css('display', '');
 
 							var uiUpdate = setInterval(function() {
-        				if($('[class^="channels"]').length > 0 && ($('[class^="channels"] header span').text() == 'GamesDoneQuick' || $('[class^="channels"] header span').text() == 'European Speedrunner Assembly')) {
-									updateDiscordUI('add');
-        					clearInterval(uiUpdate);
-        				}
+								updateDiscordUI('add');
+      					clearInterval(uiUpdate);
         			}, 500);
     				} else {
     					$('#twitch-container').css('display', 'none');

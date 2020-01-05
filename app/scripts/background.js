@@ -30,10 +30,10 @@ window.checkForUpdatedScheduleJSON = null;
 
 window.portForMessage = null;
 
-$.getJSON('/json/sgdq2019_runners.json').done(function(resp) {
+$.getJSON('/json/agdq2020_runners.json').done(function(resp) {
     gdqRunnerJSON = resp;
 });
-$.getJSON('/json/sgdq2019_schedule.json').done(function(resp) {
+$.getJSON('/json/agdq2020_schedule.json').done(function(resp) {
     gdqScheduleJSON = resp;
     gdqFuzzySearchArray = _.keys(gdqScheduleJSON);
     gdqFuzzySet = FuzzySet(gdqFuzzySearchArray);
@@ -59,17 +59,18 @@ chrome.runtime.onConnect.addListener(function (port) {
             if (msg.message == "request") {
                 $.ajax({
                   datatype: "json",
-                  url: "https://api.twitch.tv/channels/gamesdonequick",
+                  url: "https://api.twitch.tv/kraken/streams/22510310",
                   beforeSend: function(req) {
+                    req.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
                     req.setRequestHeader('Client-ID', 'b7r2pt8m5gawx9u2ur2d9rx26xo6h7w')
                   },
                   success: function(resp) {
                     console.log("Completed request to Twitch");
 
-                    if (current_game != resp.game) {
-                        console.log("The Current Game being run is: " + resp.game);
+                    if (current_game != resp.stream.game) {
+                        console.log("The Current Game being run is: " + resp.stream.game);
 
-                        current_game = resp.game;
+                        current_game = resp.stream.game;
                         getSpeedrunData(current_game, port);
                         console.log(current_link);
                     } else {
@@ -84,16 +85,17 @@ chrome.runtime.onConnect.addListener(function (port) {
             } else if (msg.message == "refresh") {
                 $.ajax({
                   datatype: "json",
-                  url: "https://api.twitch.tv/channels/gamesdonequick",
+                  url: "https://api.twitch.tv/kraken/streams/22510310",
                   beforeSend: function(req) {
+                    req.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
                     req.setRequestHeader('Client-ID', 'b7r2pt8m5gawx9u2ur2d9rx26xo6h7w')
                   },
                   success: function(resp) {
                     console.log("Completed request to Twitch");
-                    if (current_game != resp.game) {
-                        console.log("The Current Game being run is: " + resp.game);
+                    if (current_game != resp.stream.game) {
+                        console.log("The Current Game being run is: " + resp.stream.game);
 
-                        current_game = resp.game;
+                        current_game = resp.stream.game;
                         getSpeedrunData(current_game, port);
                         console.log(current_link);
                     } else {
@@ -308,10 +310,10 @@ function getRunnerData(runners) {
     var runnersObject = _.reduce(runnersArray, function (object, runner) {
         var runnerData = runnerJSON[runner];
         if (typeof runnerData == "undefined") {
-            $.getJSON("https://gist.githubusercontent.com/theoriginalcamper/250f581aec12ecd9a6510feeb9216b2a/raw/sgdq2019_runners.json").done(function (resp) {
+            $.getJSON("https://gist.githubusercontent.com/theoriginalcamper/a65ff06bd3fd30b49db7ff67e5881476/raw/agdq2020_runners.json").done(function (resp) {
                 if (_.difference(_.keys(resp), _.keys(runnerJSON)) == []) {
                     checkForUpdatedRunnerJSON = setInterval(function() {
-                        $.getJSON("https://gist.githubusercontent.com/theoriginalcamper/250f581aec12ecd9a6510feeb9216b2a/raw/sgdq2019_runners.json").done(function (resp) {
+                        $.getJSON("https://gist.githubusercontent.com/theoriginalcamper/a65ff06bd3fd30b49db7ff67e5881476/raw/agdq2020_runners.json").done(function (resp) {
                             if (_.difference(_.keys(resp), _.keys(runnerJSON)) != []) {
                                 gdqRunnerJSON = resp;
                                 runnerJSON = gdqRunnerJSON;
