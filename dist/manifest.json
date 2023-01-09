@@ -1,6 +1,6 @@
 {
   "name": "__MSG_appName__",
-  "version": "3.1.1",
+  "version": "3.7.5",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
@@ -34,6 +34,7 @@
     "https://www.discordapp.com/*",
     "http://discordapp.com/*",
     "https://discordapp.com/*",
+    "https://discord.com/*",
     "http://api.twitch.tv/channels/gamesdonequick",
     "https://api.twitch.tv/channels/gamesdonequick"
   ],
@@ -65,10 +66,10 @@
         "https://gamesdonequick.com/schedule",
         "http://www.gamesdonequick.com/schedule",
         "https://www.gamesdonequick.com/schedule",
-        "http://gamesdonequick.com/schedule/28",
-        "https://gamesdonequick.com/schedule/28",
-        "http://www.gamesdonequick.com/schedule/28",
-        "https://www.gamesdonequick.com/schedule/28"
+        "http://gamesdonequick.com/schedule/41",
+        "https://gamesdonequick.com/schedule/41",
+        "http://www.gamesdonequick.com/schedule/41",
+        "https://www.gamesdonequick.com/schedule/41"
       ],
       "css": [
         "styles/fontawesome-min.css",
@@ -91,10 +92,10 @@
         "https://gamesdonequick.com/schedule",
         "http://www.gamesdonequick.com/schedule",
         "https://www.gamesdonequick.com/schedule",
-        "http://gamesdonequick.com/schedule/28",
-        "https://gamesdonequick.com/schedule/28",
-        "http://www.gamesdonequick.com/schedule/28",
-        "https://www.gamesdonequick.com/schedule/28"
+        "http://gamesdonequick.com/schedule/41",
+        "https://gamesdonequick.com/schedule/41",
+        "http://www.gamesdonequick.com/schedule/41",
+        "https://www.gamesdonequick.com/schedule/41"
       ],
       "js": [
         "scripts/gdq/gdq-vod-contentscript.js"
@@ -104,52 +105,17 @@
     },
     {
       "matches": [
-        "http://esamarathon.com/",
-        "https://esamarathon.com/",
-        "http://www.esamarathon.com/",
-        "https://www.esamarathon.com/",
-        "http://esamarathon.com/schedule",
-        "https://esamarathon.com/schedule",
-        "http://www.esamarathon.com/schedule",
-        "https://www.esamarathon.com/schedule"
-      ],
-      "css": [
-        "styles/fontawesome-min.css",
-        "styles/bootstrap-switch.min.css",
-        "styles/main.css"
-      ],
-      "js": [
-        "vendor/jquery-3.0.0.min.js",
-        "vendor/bootstrap-notify.min.js",
-        "vendor/bootstrap-switch.min.js",
-        "vendor/underscore-min.js",
-        "scripts/esa/esa-contentscript.js"
-      ]
-    },
-    {
-      "matches": [
-        "http://esamarathon.com/schedule",
-        "https://esamarathon.com/schedule",
-        "http://www.esamarathon.com/schedule",
-        "https://www.esamarathon.com/schedule"
-      ],
-      "js": [
-        "scripts/esa/esa-vod-contentscript.js"
-      ]
-    },
-    {
-      "matches": [
-        "https://discordapp.com/channels/85369684286767104/85369684286767104",
-        "https://discordapp.com/channels/85369684286767104/*",
-        "https://discordapp.com/channels/140605087511740416/140605087511740416",
-        "https://discordapp.com/channels/140605087511740416/*",
-        "https://discordapp.com/channels/*",
-        "https://discordapp.com/activity",
-        "https://discordapp.com/activity/*",
-        "https://discordapp.com/store",
-        "https://discordapp.com/store/*",
-        "https://discordapp.com/library",
-        "https://discordapp.com/library/*"
+        "https://discord.com/channels/85369684286767104/85369684286767104",
+        "https://discord.com/channels/85369684286767104/*",
+        "https://discord.com/channels/140605087511740416/140605087511740416",
+        "https://discord.com/channels/140605087511740416/*",
+        "https://discord.com/channels/*",
+        "https://discord.com/activity",
+        "https://discord.com/activity/*",
+        "https://discord.com/store",
+        "https://discord.com/store/*",
+        "https://discord.com/library",
+        "https://discord.com/library/*"
       ],
       "css": [
         "styles/fontawesome-min.css",
@@ -158,11 +124,11 @@
         "styles/discord.css"
       ],
       "js": [
-        "vendor/twitch.embed.v1.js",
         "vendor/jquery-3.0.0.min.js",
         "vendor/bootstrap.min.js",
         "vendor/bootstrap-switch.min.js",
         "vendor/underscore-min.js",
+        "vendor/twitch.embed.v1.js",
         "scripts/discord-contentscript.js"
       ],
       "run_at": "document_end",
@@ -172,15 +138,12 @@
   "web_accessible_resources": [
     "html/gdq-footer.html",
     "html/quakenet-chat.html",
-    "html/esa-quakenet-chat.html",
     "html/quakenet-theater-mode.html",
     "html/esa-quakenet-theater-mode.html",
     "html/settings-menu.html",
-    "html/esa-settings-menu.html",
     "html/twitch-chat.html",
     "fonts/fontawesome-webfont.woff",
     "fonts/fontawesome-webfont.woff2",
-    "json/agdq2020_runners.json",
-    "json/esa_schedule.json"
+    "json/agdq2023_runners.json"
   ]
 }

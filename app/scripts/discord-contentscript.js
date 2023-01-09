@@ -16,12 +16,12 @@ $(document).ready(function() {
 
 	var styleNode = document.createElement("style");
 	styleNode.type = "text/css";
-	styleNode.textContent = `@font-face { font-family: FontAwesome; src: url(${chrome.extension.getURL("/fonts/fontawesome-webfont.woff")});}`;
+	styleNode.textContent = `@font-face { font-family: FontAwesome; src: url(${chrome.runtime.getURL("/fonts/fontawesome-webfont.woff")});}`;
 	document.head.appendChild(styleNode);
 
     var checkAccount = setInterval(function(){
     	if ($('[class*="usernameContainer"]').length > 0) {
-				var guildList = $('[class^="listItem-2P"]').filter(function( index ) {
+				var guildList = $('[class^="listItem-"]').filter(function( index ) {
 					var elementStyle = $('span', this).attr('style');
 					if (typeof elementStyle !== 'undefined') {
 						var styleList = elementStyle.split(';');
@@ -32,7 +32,7 @@ $(document).ready(function() {
 					}
 			  });
 
-    		if(guildList.has('a[href^="/channels/140605087511740416/"]').length > 0 || guildList.has('a[href^="/channels/85369684286767104/"]').length > 0) { // Check if element has been found
+    		if(guildList.has('div[data-dnd-name="GamesDoneQuick"]').length > 0) { // Check if element has been found
 		      	console.log('Add Switch to Links Panel');
 		      	addInformationBar();
 						addTwitchSwitch();
@@ -91,8 +91,8 @@ $(document).ready(function() {
     },1000);
 
     function addTwitchSwitch() {
-			$('[class*="usernameContainer"]').parent().parent().css('margin-bottom', '30px');
-			$('#gdq-header').after(`<div id="twitch-switch" style="position: fixed; width: ${$('div[class^="channels-"]').width()}px; height: 22px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth()}px; bottom: 0;"><label for="twitch-player-display" id="twitch-player-display-label">Twitch Player Embed</label></div>`);
+			$('[class*="usernameContainer"]').parent().parent().parent().css('margin-bottom', '30px');
+			$('#gdq-header').after(`<div id="twitch-switch" style="position: fixed; width: ${$('div[class^="channels-"]').width()}px; height: 22px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth()}px; bottom: 0; z-index: 2;"><label for="twitch-player-display" id="twitch-player-display-label">Twitch Player Embed</label></div>`);
 			$('#twitch-switch').append(`<input type="checkbox" data-size="mini" name="twitch-player-display">`);
 	    $('#twitch-switch').append(`<i class="fa fa-expand" id="player-size-icon" style="margin-left: 10px; display: none;"></i>`);
 
@@ -102,7 +102,7 @@ $(document).ready(function() {
     function addInformationBar() {
 
 			$('#app-mount').before(`
-					<header id="gdq-header" style="width: ${$('div[class^="title-"]').width() - $('div[class^="title-"] > div[class^="toolbar-"]').width() - 10}px; height: ${$('div[class^="title-"]').outerHeight() - 1}px; overflow: hidden; min-height: 48px; position: fixed; top: 0px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth() + $('div[class^="sidebar-"]').width()}px;">
+					<header id="gdq-header" style="width: ${$('div[class^="chat-"] > section > div[class^="children"]').width()}px; height: ${$('div[class^="title-"]').outerHeight() - 1}px; overflow: hidden; min-height: 48px; position: fixed; top: 0px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth() + $('div[class^="sidebar-"]').width()}px;">
 						<div class="extension-container">
 							<div id="options" style="transform: translateY(37.5%);">
 								<i class="fa fa-calendar collapsed" data-toggle="collapse" data-target="#collapseCalendar" aria-expanded="false"></i>
@@ -165,19 +165,18 @@ $(document).ready(function() {
 						console.log(Math.round($(document).width() - $('[class^="unreadMentionsIndicatorTop-"]').outerWidth() - ($('[class^="chat"]').width() * (parseFloat($('[class^="messagesWrapper"]')[0].style.width)) / 100)));
 						twitchPlayerInitialSize = Math.round($(document).width() - $('[class^="unreadMentionsIndicatorTop-"]').outerWidth() - ($('[class^="chat"]').width() * (parseFloat($('[class^="messagesWrapper"]')[0].style.width)) / 100));
 
-						$('#app-mount').before(`<div id="twitch-container" style="width: ${twitchPlayerInitialSize}px; height: ${$('#app-mount').height() - $('div[class^="title-"]').outerHeight() - $('#twitch-switch').outerHeight()}px; position: fixed; z-index:100; top: ${$('div[class^="title-"]').outerHeight()}px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth()}px;">
-																				<iframe src="https://embed.twitch.tv?allowfullscreen=true&amp;channel=gamesdonequick&amp;layout=video" allowfullscreen="" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
-																		</div>`);
+						$('#app-mount').before(`<div id="twitch-container" style="width: ${twitchPlayerInitialSize - 10}px; height: ${$('#app-mount').height() - $('[aria-label="Channel header"]').outerHeight() - $('#twitch-switch').outerHeight()}px; position: fixed; z-index:100; top: ${$('[aria-label="Channel header"]').outerHeight()}px; left: ${$('[class^="unreadMentionsIndicatorTop-"]').outerWidth()}px;"></div>`);
 						// $('#app-mount').before(`<script type="text/javascript">
 					  //     new Twitch.Embed("twitch-container", {
 					  //       width: "100%",
 					  //       height: "100%",
 						// 			layout: "video",
 						// 			allowfullscreen: true,
-					  //       channel: "gamesdonequick"
+					  //       channel: "gamesdonequick",
+						// 			parent: ["discord.com"]
 					  //     });
 					  //   </script>`);
-
+						clickTwitchSwitch();
       } else if (msg == 'remove') {
             console.log('Switch is off. Removing Twitch iframe and UI changes.');
             $('#twitch-container').remove();
@@ -191,6 +190,18 @@ $(document).ready(function() {
         }
     }
 
+		function clickTwitchSwitch() {
+			console.log("Clicking Switch for TTV.")
+			new Twitch.Embed("twitch-container", {
+        width: "100%",
+        height: "100%",
+				layout: "video",
+				allowfullscreen: true,
+        channel: "gamesdonequick",
+				parent: ["discord.com"]
+      });
+		}
+
 		function adjustTwitchPlayerSize(msg) {
 			if (twitchPlayerSizeState == 'large') {
 				// Switch to large display
@@ -201,7 +212,7 @@ $(document).ready(function() {
 				// Switch to small display
 				// $('#twitch-container').css('width', twitchPlayerInitialSize);
 				$('[class^="messagesWrapper"]').css('width', '48%');
-				$('[class^="messagesWrapper"]').next('form').css({'width': '46%', 'margin-right': '2%', 'margin-left': '0px'});
+				$('[class^="messagesWrapper"]').next('form').css({'width': '44%', 'margin-right': '2%', 'margin-left': '0px'});
 				$('#twitch-container').css('width', $(document).width() - $('[class^="unreadMentionsIndicatorTop-"]').outerWidth() - $('[class^="messagesWrapper"]').width());
 			}
 		}
@@ -338,7 +349,7 @@ $(document).ready(function() {
 
     var checkForActiveGuild = setInterval(function() {
 
-			var guildList = $('[class^="listItem-2P"]').filter(function( index ) {
+			var guildList = $('[class^="listItem-"]').filter(function( index ) {
 				var elementStyle = $('span', this).attr('style');
 				if (typeof elementStyle !== 'undefined') {
 					var styleList = elementStyle.split(';');
@@ -352,9 +363,9 @@ $(document).ready(function() {
 
 			console.log(guildList);
     	if ($('[class*="selected-"]').length > 0) { // Check if element has been found
-    		$(document).on('click', '[class^="listItem-2P"] > [class^="blob"]', function() {
+    		$(document).on('click', '[class^="listItem-"] > div', function() {
     			if (twitchActive) {
-    				if ($(this).has('a[href^="/channels/140605087511740416/"]').length > 0 || $(this).has('a[href^="/channels/85369684286767104"]').length > 0) {
+    				if ($(this).has('div[href^="/channels/140605087511740416/"]').length > 0 || $(this).has('div[href^="/channels/85369684286767104"]').length > 0) {
     					$('#twitch-container').css('display', '');
 
 							var uiUpdate = setInterval(function() {
@@ -371,14 +382,14 @@ $(document).ready(function() {
 						$('[class*=usernameContainer]', $('[class^="channels"]')).parent().parent().css('margin-bottom', '30px');
 					}
 
-    			if ($(this).has('a[href^="/channels/140605087511740416/"]').length > 0 || $(this).has('a[href^="/channels/85369684286767104"]').length > 0) {
+    			if ($(this).has('div[href^="/channels/140605087511740416/"]').length > 0 || $(this).has('div[href^="/channels/85369684286767104"]').length > 0) {
     				updateGDQHeaderDisplay('add');
     			} else {
     				updateGDQHeaderDisplay('remove');
     			}
     		});
 
-    		$('[class^="listItem-2P"] > [class^="listItemWrapper"]').on('click', function() {
+    		$('[class^="listItem-"] > [class^="listItemWrapper"]').on('click', function() {
     			updateGDQHeaderDisplay('remove');
     			if (twitchActive) {
 							$('#twitch-container').css('display', 'none');
