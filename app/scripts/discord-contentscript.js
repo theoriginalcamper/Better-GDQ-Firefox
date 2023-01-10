@@ -32,7 +32,7 @@ $(document).ready(function() {
 					}
 			  });
 
-    		if(guildList.has('div[data-dnd-name="GamesDoneQuick"]').length > 0) { // Check if element has been found
+    		if(guildList.has('div[data-dnd-name*="GamesDoneQuick"]').length > 0) { // Check if element has been found
 		      	console.log('Add Switch to Links Panel');
 		      	addInformationBar();
 						addTwitchSwitch();
@@ -365,9 +365,9 @@ $(document).ready(function() {
     	if ($('[class*="selected-"]').length > 0) { // Check if element has been found
     		$(document).on('click', '[class^="listItem-"] > div', function() {
     			if (twitchActive) {
-    				if ($(this).has('div[href^="/channels/140605087511740416/"]').length > 0 || $(this).has('div[href^="/channels/85369684286767104"]').length > 0) {
+    				if ($(this).has('div[data-dnd-name*="GamesDoneQuick"]').length > 0 || $(this).has('div[href^="/channels/85369684286767104"]').length > 0) {
     					$('#twitch-container').css('display', '');
-
+							
 							var uiUpdate = setInterval(function() {
 								updateDiscordUI('add');
       					clearInterval(uiUpdate);
@@ -382,7 +382,7 @@ $(document).ready(function() {
 						$('[class*=usernameContainer]', $('[class^="channels"]')).parent().parent().css('margin-bottom', '30px');
 					}
 
-    			if ($(this).has('div[href^="/channels/140605087511740416/"]').length > 0 || $(this).has('div[href^="/channels/85369684286767104"]').length > 0) {
+    			if ($(this).has('div[data-dnd-name*="GamesDoneQuick"]').length > 0 || $(this).has('div[href^="/channels/85369684286767104"]').length > 0) {
     				updateGDQHeaderDisplay('add');
     			} else {
     				updateGDQHeaderDisplay('remove');
